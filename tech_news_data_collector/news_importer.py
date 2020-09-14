@@ -1,6 +1,9 @@
+import json
+
+
 def csv_importer():
-    raise NotImplementedError
+    return NotImplementedError
 
 
-def json_importer():
-    raise NotImplementedError
+def json_importer(file_path):
+    return NotImplementedError

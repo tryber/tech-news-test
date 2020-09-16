@@ -56,7 +56,7 @@ def test_json_importer_importacao_interrompida_em_caso_de_erro():
 
 
 def test_json_importer_sucesso():
-    file_path = os.path.join(CURRENT_PATH, 'samples', 'doc.json')
+    file_path = os.path.join(CURRENT_PATH, 'fixture', 'doc.json')
     res = json_importer(file_path)
     assert len(res) == 1
     assert res[0]['title'] == 'Alemanha já trabalha na regulamentação de carros autônomos'

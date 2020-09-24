@@ -7,22 +7,20 @@ jobs:
     name: Evaluator Job
     runs-on: ubuntu-18.04
     steps:
-      # - name: Wait for build to succeed
-      #   uses: betrybe/action-wait-for-check@v2
-      #   id: wait-for-build
-      #   with:
-      #     token: ${{ secrets.GITHUB_TOKEN }}
-      #     checkName: codeclimate
-      #     ref: ${{ github.event.pull_request.head.sha || github.sha }}
+      - name: Flake8 Linter Step
+        uses: betrybe/flake8-linter-action@learn-274
+        id: flake8_linter
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
       - uses: actions/checkout@v2
-        # if: steps.wait-for-build.outputs.conclusion == 'success'
+        if: steps.flake8_linter.outputs.conclusion == 'success'
       - name: Pytest Evaluator Step
         uses: betrybe/pytest-evaluator-action@learn-273
         id: pytest_evaluator
-        # if: steps.wait-for-build.outputs.conclusion == 'success'
+        if: steps.flake8_linter.outputs.conclusion == 'success'
       - name: Store evaluation step
         uses: betrybe/store-evaluation-action@v2
-        # if: steps.wait-for-build.outputs.conclusion == 'success'
+        if: steps.flake8_linter.outputs.conclusion == 'success'
         with:
           evaluation-data: ${{ steps.pytest_evaluator.outputs.result }}
           environment: staging

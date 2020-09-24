@@ -7,15 +7,17 @@ jobs:
     name: Evaluator Job
     runs-on: ubuntu-18.04
     steps:
+      - uses: actions/checkout@v2
       - name: Flake8 Linter Step
         uses: betrybe/flake8-linter-action@learn-274
         id: flake8_linter
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
+          pr_number: ${{ github.event.number }}
       - uses: actions/checkout@v2
         if: steps.flake8_linter.outputs.conclusion == 'success'
       - name: Pytest Evaluator Step
-        uses: betrybe/pytest-evaluator-action@learn-273
+        uses: betrybe/pytest-evaluator-action@v1
         id: pytest_evaluator
         if: steps.flake8_linter.outputs.conclusion == 'success'
       - name: Store evaluation step

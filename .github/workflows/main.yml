@@ -15,14 +15,11 @@ jobs:
           token: ${{ secrets.GITHUB_TOKEN }}
           pr_number: ${{ github.event.number }}
       - uses: actions/checkout@v2
-        if: steps.flake8_linter.outputs.conclusion == 'success'
       - name: Pytest Evaluator Step
         uses: betrybe/pytest-evaluator-action@v1
         id: pytest_evaluator
-        if: steps.flake8_linter.outputs.conclusion == 'success'
       - name: Store evaluation step
         uses: betrybe/store-evaluation-action@v2
-        if: steps.flake8_linter.outputs.conclusion == 'success'
         with:
           evaluation-data: ${{ steps.pytest_evaluator.outputs.result }}
           environment: staging
